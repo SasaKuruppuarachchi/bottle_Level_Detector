@@ -3,6 +3,7 @@ OpenCV based bottle level detector using minimal libraries
 
 -  tested using photos of Different types bolles with ifferent colored liquid taked from 3 different cameras.
 -  Succuess rate around 96%
+-  Algorythem automatically adjusts the thresholds for optimal detection.
 -  accounts for the tilt and adust the output accordingly.
 -  Shwows the actual liquid level and required 80% level
 
