@@ -7,6 +7,6 @@ OpenCV based bottle level detector using minimal libraries
 -  Shwows the actual liquid level and required 80% level
 
 
-<img alt="Kalman" width=350 src="https://github.com/SasaKuruppuarachchi/bottle_Level_Detector/blob/main/run1.png" /></a>
+<img alt="Kalman" src="https://github.com/SasaKuruppuarachchi/bottle_Level_Detector/blob/main/run1.png" /></a>
 
-<img alt="Kalman" width=350 src="https://github.com/SasaKuruppuarachchi/bottle_Level_Detector/blob/main/run2.png" />
+<img alt="Kalman"  src="https://github.com/SasaKuruppuarachchi/bottle_Level_Detector/blob/main/run2.png" />
