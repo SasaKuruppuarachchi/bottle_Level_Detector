@@ -5,3 +5,8 @@ OpenCV based bottle level detector using minimal libraries
 -  Succuess rate around 96%
 -  accounts for the tilt and adust the output accordingly.
 -  Shwows the actual liquid level and required 80% level
+
+
+<img alt="Kalman" width=350 src="https://github.com/SasaKuruppuarachchi/bottle_Level_Detector/blob/main/run1.png" /></a>
+
+<img alt="Kalman" width=350 src="https://github.com/SasaKuruppuarachchi/bottle_Level_Detector/blob/main/run2.png" />
