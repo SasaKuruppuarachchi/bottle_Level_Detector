@@ -1,27 +1,31 @@
+
+# CODE REVIEW
+##- Sasanka Kuruppuarachchi
+##Project - "https://github.com/SasaKuruppuarachchi/bottle_Level_Detector"
+
+#import packages numpy, cv2, Matplotlib, sklearn.cluster, 
 import numpy as np 
 import os 
 import cv2 
 import matplotlib.pyplot as plt
 from sklearn.cluster import AgglomerativeClustering
 
-# defining the canny detector function 
-   
-# here weak_th and strong_th are thresholds for 
-# double thresholding step
+# gaussian_kernel(size,sigma) is the function for noce filtering using gausian filter
 def gaussian_kernel(size,sigma = 1):
     size = int(size)
     x,y = np.mgrid[-size:size+1,-size:size+1]
     normal = 1/(2.0*np.pi*sigma**2)
     g = np.exp(-((x**2+y**2)/(2.0*sigma**2)))*normal
     return g
-size = 5
 
-
-
+# defining the canny detector function 
+   
+# here weak_th and strong_th are thresholds for 
+# double thresholding step
 def contour_detectorSasa(img, weak_th = None, strong_th = None, num_clusters = 3):
     _contours =  []
        
-    # Noise reduction step 
+    # Noise reduction step - image smoothing
     img = cv2.filter2D(img,-1,gaussian_kernel(size,sigma = 1)) 
        
     # Calculating the gradients 
@@ -40,7 +44,7 @@ def contour_detectorSasa(img, weak_th = None, strong_th = None, num_clusters = 3
     # getting the dimensions of the input image   
     height, width = img.shape 
      
-    
+    # get weak and strong ids
     weak_ids = np.zeros_like(img) 
     strong_ids = np.zeros_like(img)               
     ids = np.zeros_like(img)
@@ -102,11 +106,7 @@ def contour_detectorSasa(img, weak_th = None, strong_th = None, num_clusters = 3
     _contours.append(ctr1)
     _contours.append(ctr2)
     _contours.append(ctr3)
-    #_contours.append(ctr4)
-    #_contours.append(ctr5)
-       
-    # finally returning the cvSeq of 
-    # gradients of edges 
+    
     return _contours
 
 
@@ -204,10 +204,14 @@ def fluid_level_detect(file_name, tresh_min, tresh_max , num_clusters = 3):
     #cv2.imwrite('cnt_'+file_name, image)
     #cv2.imshow('detection',image)
 
-    return count,fluidPrecentage, abs(a) 
+    return count,fluidPrecentage, abs(a)
 
+
+size = 5
+path = (r"C:\Users\Asus\dev\bottle_Level_Detector\Source")
 if __name__ == '__main__':
-    filename = 'testCases/bottle2.jpg'
+    filename = 'testCases/14.jpg'
+    filename = os.path.join(path,filename)
     cnt, level, tilt = fluid_level_detect(filename, 75, 100)
     print("")
   
@@ -226,5 +230,7 @@ if __name__ == '__main__':
         print("**** Retry with lower clustering *****")
         cv2.destroyAllWindows()
         fluid_level_detect(filename, 75, 100,2)
+
+cv2.waitKey(0)
 
 
