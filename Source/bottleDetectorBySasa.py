@@ -10,6 +10,9 @@ import cv2
 import matplotlib.pyplot as plt
 from sklearn.cluster import AgglomerativeClustering
 
+import tkinter as Tkinter
+import tkinter.filedialog as tkFileDialog
+
 # gaussian_kernel(size,sigma) is the function for noce filtering using gausian filter
 def gaussian_kernel(size,sigma = 1):
     size = int(size)
@@ -208,29 +211,47 @@ def fluid_level_detect(file_name, tresh_min, tresh_max , num_clusters = 3):
 
 
 size = 5
-path = (r"C:\Users\Asus\dev\bottle_Level_Detector\Source")
-if __name__ == '__main__':
-    filename = 'testCases/14.jpg'
-    filename = os.path.join(path,filename)
-    cnt, level, tilt = fluid_level_detect(filename, 75, 100)
-    print("")
-  
-    #80 100
-    if cnt > 1:
-        print("**** Retry with lower min threshhold *****")
-        cv2.destroyAllWindows()
-        fluid_level_detect(filename, 60, 100,2)
 
-    if 90 - tilt > 6:
-        print("**** Retry with lower min threshhold *****")
-        cv2.destroyAllWindows()
-        fluid_level_detect(filename, 60, 100,2)
+def test_image():
+    print("\nCheck Bottle Level. Press ENTER to continue... :\n Press 'n' to exit")
+    while 'n' != input():
+        root = Tkinter.Tk()
+        
 
-    if level < 10:
-        print("**** Retry with lower clustering *****")
-        cv2.destroyAllWindows()
-        fluid_level_detect(filename, 75, 100,2)
+        currdir = os.getcwd() + '/test/'
+        path = tkFileDialog.askopenfilename(parent=root, initialdir=currdir, title='Please select an Image of a bottle',filetypes = (("jpeg files","*.jpg"),("all files","*.*")))
+        root.withdraw() #use 
+        if len(path) > 0:
+            if "jpg" in path:
+                print ("You chose " ,path)
+                #path = (r"C:\Users\Asus\dev\bottle_Level_Detector\Source")
+                if __name__ == '__main__':
+                    #filename = 'testCases/14.jpg'
+                    #filename = os.path.join(path,filename)
+                    filename = path
+                    cnt, level, tilt = fluid_level_detect(filename, 75, 100)
+                    print("")
+                
+                    #80 100
+                    if cnt > 1:
+                        print("**** Retry with lower min threshhold *****")
+                        cv2.destroyAllWindows()
+                        fluid_level_detect(filename, 60, 100,2)
 
-cv2.waitKey(0)
+                    if 90 - tilt > 6:
+                        print("**** Retry with lower min threshhold *****")
+                        cv2.destroyAllWindows()
+                        fluid_level_detect(filename, 60, 100,2)
 
+                    if level < 10:
+                        print("**** Retry with lower clustering *****")
+                        cv2.destroyAllWindows()
+                        fluid_level_detect(filename, 75, 100,2)
+
+                cv2.waitKey(0)
+                cv2.destroyAllWindows()
+            print("Press 'n' to exit")
+
+
+test_image()
 
